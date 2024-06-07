@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:isostar/models/article_model.dart';
 
 class ArticleItem extends StatelessWidget {
-  final String author;
-  final String content;
-  final int goodCount;
-  const ArticleItem(
-      {required this.author,
-      required this.content,
-      required this.goodCount,
-      super.key});
+  final ArticleModel article;
+  const ArticleItem({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset(
-          'assets/images/running-car.jpg',
+        Image.network(
+          article.image,
           fit: BoxFit.contain,
         ),
         Padding(
@@ -25,11 +20,11 @@ class ArticleItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '좋아요 $goodCount',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                '좋아요 ${article.likes}',
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(author),
-              Text(content),
+              Text(article.user),
+              Text(article.content),
             ],
           ),
         )
