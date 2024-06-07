@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:isostar/screens/article_list_screen.dart';
+import './style.dart' as style;
 
 void main() {
-  runApp(MaterialApp(
-      theme: ThemeData(
-        iconTheme: const IconThemeData(color: Colors.black),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-      ),
-      home: MyApp()));
+  runApp(MaterialApp(theme: style.theme, home: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({super.key});
 
-  TextStyle textStyle1 = TextStyle(color: Colors.black);
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
+class _MyAppState extends State<MyApp> {
+  var currentTab = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '이소스타',
-          style: textStyle1,
+        appBar: AppBar(
+          title: Text('이소스타'),
+          actions: <Widget>[Icon(Icons.add_box_outlined)],
         ),
-        actions: <Widget>[Icon(Icons.add_box_outlined)],
-        elevation: 1,
-      ),
-      body: Center(
-        child: Text('이소스타'),
-      ),
-    );
+        body: Center(
+          child: [ArticleScreen(), Text('샵')][currentTab],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            onTap: (idnex) => setState(() => currentTab = idnex),
+            items: const [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.home_outlined), label: 'home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_bag_outlined), label: 'shop')
+            ]));
   }
 }
