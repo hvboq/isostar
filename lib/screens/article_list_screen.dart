@@ -11,8 +11,7 @@ class ArticleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: articles,
-    );
+    return ListView.builder(
+        itemCount: articles.length, itemBuilder: (c, i) => articles[i]);
   }
 }
